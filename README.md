@@ -1,8 +1,10 @@
 # Online-Store
 **1.Создать директорию media , куда будут сохраняться изображения для товара**
 
-**2.Сделать миграцию командой - python manage.py migrate**
+**2.Установить нужные библиотеки - pip install -r requirements.txt**
 
-**3.Запустить - python manage.py runserver**
+**3.Сделать миграцию - python manage.py migrate**
+
+**4.Запустить - python manage.py runserver**
 
 
