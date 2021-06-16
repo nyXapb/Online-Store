@@ -1,0 +1,46 @@
+{% extends 'base.html' %} 
+{% load specifications %}
+{% block content %}   
+
+<nav aria-label="breadcrumb" class="mt-3">
+    <ol class="breadcrumb" style="font-size: 20px;" >
+        <li class="breadcrumb-item" > <a  href="{% url 'base' %}">Главная</a></li>
+        <li class="breadcrumb-item"> <a href="{% url 'category_detail' slug=product.category.slug %}">{{ product.category.name }}</a></li>    
+        <li class="breadcrumb-item active" aria-current ="page">{{ product.title }}</a></li>    
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-md-4">
+        <img src="{{ product.image.url }}" style="width: auto; max-height: 150px"  class="card-img-top rounded mx-auto d-block img-fluid" alt="{{ product.title }}">
+    </div>
+    <div class="col-md-8">
+        <h3>{{ product.title }}</h3>
+        <p>Цена: {{ product.price }} руб.</p>
+        <p>Описание: {{ product.description }}</p>
+        <hr>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}">
+                <button class="btn btn-danger">Добавить в корзину</button>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}"> 
+                <button class="btn btn-danger">Добавить в корзину</button>
+            </a>
+        {% endif %}
+    </div> 
+    
+    {% if product.category.slug != 'accessories' %}
+        <p class="mt-4">Характеристики:</p>
+    <!-- Можно так при помощи Фильтров -->
+        {{ product|product_spec}}
+    {% endif %}
+    <!-- А можно и так -->
+    <!-- {% if product.category.slug == 'notebooks' %}
+      {% include 'notebook_specification.html' %}
+    {% else %}
+      {% include 'smartphone_specification.html' %}
+    {% endif %} -->
+  
+</div>
+
+{% endblock content %}
